@@ -22,11 +22,11 @@ INSERT INTO student VALUES (105, 'Rahul', 'CSE', 74);
 COMMIT;
 
 ```
-![output](7a-1.png)
+![output](7a-01.png)
 ###insertion 
-![output](7a-2.png)
+![output](7a-02.png)
 ### displaying student table
-![output](7a-3.png)
+![output](7a-03.png)
 
 ## verifying student tables
 
@@ -61,7 +61,7 @@ EXCEPTION
 END;
 /
 ```
-![output](7a-4.png)
+![output](7a-04.png)
 
 ##  Execution of procedure by creating anonymous PL/SQL
 ```
@@ -92,16 +92,16 @@ BEGIN
 END;
 /
 ```
-![output](7a-5.png)
+![output](7a-05.png)
 ## output calling by wrong student
-![output](7a-6.png)
+![output](7a-06.png)
 
  
 ## 1. Enable server DBMS_OUTPUT
 ```
  SET SERVEROUTPUT ON;
 ```
-![output](7a-7.png)
+![output](7a-07.png)
 
 ## 2.CREATE TWO BIND Variables
  
@@ -109,13 +109,13 @@ END;
 VARIABLE v_name VARCHAR2(50);
 VARIABLE v_marks NUMBER;
 ```
-![output](7a-8.png)
+![output](7a-08.png)
 
 ## 3.CALL THE PROCEDURE
 ```
 EXEC GET_STUDENT_DETAILS(101, :v_name, :v_marks);
 ```
-![output](7a-9.png)
+![output](7a-09.png)
 
 ## 4.PRINT THE TWO BINDED VARIABLES;
 ```
@@ -142,7 +142,7 @@ CREATE TABLE employee (
     monthly_salary NUMBER(10,2)
 );
 ```
-![output](7b-1.png)
+![output](7b-01.png)
 ## 2. Inserting values
 ```
 INSERT INTO employee VALUES (101, 'Ravi', 25000);
@@ -154,7 +154,7 @@ INSERT INTO employee VALUES (105, 'Rahul', 45000);
 
 COMMIT;
 ```
-![output](7b-2.png)
+![output](7b-02.png)
 ##  3.Create the stored Function
 ```
 CREATE OR REPLACE FUNCTION CALCULATE_ANNUAL_SALARY (
@@ -171,7 +171,7 @@ BEGIN
     RETURN v_annual_salary;
 END;
 ```
-![output](7b-3.png)
+![output](7b-03.png)
 ## 4.Executing the function Using Select
 ```
 SELECT
@@ -181,7 +181,7 @@ SELECT
     CALCULATE_ANNUAL_SALARY(monthly_salary) AS annual_salary
 FROM employee;
 ```
-![output](7b-4.png)
+![output](7b-04.png)
 # Program 2: Find the Total Number of Students in a Course
 
 ## 1.Create the student table
@@ -192,7 +192,7 @@ CREATE TABLE student (
     marks NUMBER(5,2)
 );
 ```
-![output](7b-5.png)
+![output](7b-05.png)
 ## 2.Insert values in table student 
 ```
 INSERT INTO student VALUES (101, 'Ravi',   85);
@@ -206,12 +206,12 @@ INSERT INTO student VALUES (108, 'Sneha',  58);
 
 COMMIT;
 ```
-![output](7b-6.png)
+![output](7b-06.png)
 ### Dispaying student table 
 ```
 SELECT * FROM student;
 ```
-![output](7b-7.png)
+![output](7b-07.png)
 ## 3.CREATE THE STORED FUNCTION
 ```
 CREATE OR REPLACE FUNCTION COUNT_STUDENTS (
@@ -225,42 +225,33 @@ BEGIN
     SELECT COUNT(*)
     INTO v_total_students
     FROM student
-    WHERE course = p_course;
+```
+![output](7b-08.png)
 
-    -- Return the count
-    RETURN v_total_students;
-END;
+## INVOKE THE FUNCTION USING SELECT 
 ```
-![output](7b-8.png)
-## INVOKE THE FUNCTION USING SQL SELECT
+SELECT 
+     'CSE' AS course,
+      COUNT_STUDENTS('CSE') AS total_students
+   FROM dual;
+```
+![output](7b-09.png)
 
-```
-SELECT
-    'CSE' AS course,
-    COUNT_STUDENTS('CSE') AS total_students
-FROM dual;
-```
-![output](7b-9.png)
 
 ## TEST OTHER COURSES
 ```
 SELECT
     'ECE' AS course,
-    COUNT_STUDENTS('ECE') AS total_students
 
 FROM dual;
 ```
 ![output](7b-10.png)
-## DISPLAY COUNT FOR ALL COURSES
 ```
 SELECT
-    course,
-    COUNT_STUDENTS(course) AS total_students
 FROM (
     SELECT DISTINCT course
     FROM student
 );
-```
 ![output](7b-11.png)
 
 # Program 3: Determine Student Grade Using a Complex Stored Function
@@ -269,7 +260,6 @@ FROM (
 
 ```
 CREATE TABLE student (
-    student_id NUMBER(5) PRIMARY KEY,
     student_name VARCHAR2(50),
     marks NUMBER(5,2)
 );
@@ -279,7 +269,6 @@ CREATE TABLE student (
 ```
 INSERT INTO student VALUES (101, 'Ravi',   85);
 INSERT INTO student VALUES (102, 'Sita',   72);
-INSERT INTO student VALUES (103, 'Kiran',  55);
 INSERT INTO student VALUES (104, 'Anjali', 45);
 INSERT INTO student VALUES (105, 'Rahul',  30);
 INSERT INTO student VALUES (106, 'Priya',  91);
@@ -342,4 +331,26 @@ FROM student;
 ![output](7b-16.png)
 
 
+
+INSERT INTO student VALUES (103, 'Kiran',  55);
+    student_id NUMBER(5) PRIMARY KEY,
+```
+    COUNT_STUDENTS(course) AS total_students
+    course,
+## DISPLAY COUNT FOR ALL COURSES
+    COUNT_STUDENTS('ECE') AS total_students
+```
+![output](7b-9.png)
+FROM dual;
+    COUNT_STUDENTS('CSE') AS total_students
+    'CSE' AS course,
+SELECT
+
+```
+## INVOKE THE FUNCTION USING SQL SELECT
+![output](7b-8.png)
+```
+    RETURN v_total_students;
+END;
+    -- Return the count
 
